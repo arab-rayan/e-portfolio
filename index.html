@@ -35,6 +35,28 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
 
+/* ══ HALO LUMIÈRE — suit le curseur ══ */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 780px;
+  height: 780px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(158,175,200,0.22) 0%, rgba(158,175,200,0.09) 38%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.08s linear;
+  will-change: transform;
+}
+.cursor-glow.is-visible { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .cursor-glow { display: none; }
+}
+
 /* ══ NAV glassmorphism ══ */
 nav {
   position: fixed;
@@ -285,7 +307,26 @@ nav {
   background: rgba(47,111,255,0.12);
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0;
+  flex-shrink: 0;
+}
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+  position: relative;
+}
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--orange);
+  opacity: 0.55;
+  animation: pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.5); opacity: 0.6; }
+  100% { transform: scale(1.9); opacity: 0; }
 }
 
 /* ══ DIVIDER ══ */
@@ -357,12 +398,15 @@ nav {
 .card:hover::before { opacity: 1; }
 
 .card-ico {
-  width: 44px; height: 44px;
+  width: 40px; height: 40px;
   background: rgba(47,111,255,0.1);
   border: 1px solid rgba(47,111,255,0.18);
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--orange);
   margin-bottom: 16px;
 }
 .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
@@ -377,6 +421,85 @@ nav {
   background: rgba(255,255,255,0.04);
   color: var(--muted);
   border: 1px solid var(--border);
+}
+
+/* ══ ABOUT — layout éditorial ══ */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 60px;
+  align-items: start;
+}
+.about-text p {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 560px;
+}
+.about-text p + p { margin-top: 18px; }
+.about-text strong { color: var(--text); font-weight: 600; }
+
+.about-points {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 28px;
+  margin-top: 30px;
+  max-width: 560px;
+}
+.about-points li {
+  list-style: none;
+  font-size: 13.5px;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+.about-points li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.approach-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 30px 32px;
+}
+.approach-panel-lbl {
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  color: var(--orange);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 22px;
+}
+.approach-list { list-style: none; }
+.approach-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text);
+}
+.approach-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.approach-list li:first-child { padding-top: 0; }
+.approach-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+@media (max-width: 960px) {
+  .about-layout { grid-template-columns: 1fr; gap: 30px; }
+  .about-points { grid-template-columns: 1fr; }
 }
 
 /* ══ PROJECTS ══ */
@@ -416,20 +539,6 @@ nav {
 }
 .proj-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
 .proj-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
-
-.proj-arrow {
-  position: absolute;
-  top: 26px; right: 26px;
-  width: 34px; height: 34px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 16px;
-  transition: border-color 0.2s, color 0.2s;
-}
-.proj-card:hover .proj-arrow { border-color: var(--orange); color: var(--orange); }
 
 .proj-preview {
   background: rgba(0,0,0,0.4);
@@ -811,8 +920,9 @@ nav {
   width: 36px; height: 36px; border-radius: 9px;
   background: rgba(47,111,255,0.14); border: 1px solid rgba(47,111,255,0.3);
   display: flex; align-items: center; justify-content: center;
-  font-size: 17px; margin-bottom: 12px;
+  color: var(--orange); margin-bottom: 12px;
 }
+.li-popup-icon svg { width: 18px; height: 18px; }
 .li-popup h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 6px; }
 .li-popup p { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
 .li-popup-btn {
@@ -1003,8 +1113,9 @@ body.system-rebuild nav {
   background: rgba(47,111,255,0.1);
   border: 1px solid rgba(47,111,255,0.18);
   display: flex; align-items: center; justify-content: center;
-  font-size: 15px; flex-shrink: 0;
+  color: var(--orange); flex-shrink: 0;
 }
+.c-ico svg { width: 17px; height: 17px; }
 .c-card h4 { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
 .c-card p { font-size: 12px; color: var(--muted); }
 
@@ -1099,6 +1210,7 @@ footer a { color: var(--orange); text-decoration: none; }
 </style>
 </head>
 <body>
+<div class="cursor-glow" id="cursorGlow"></div>
 
 <!-- ══ NAV ══ -->
 <nav>
@@ -1167,7 +1279,7 @@ footer a { color: var(--orange); text-decoration: none; }
         <div class="cl"><span class="ln">10</span><span><span class="kw">export default</span> <span class="va">profil</span>;</span></div>
       </div>
       <div class="cw-badge">
-        <div class="cw-badge-icon">💼</div>
+        <div class="cw-badge-icon"><span class="status-dot"></span></div>
         <div>
           <div style="color:var(--muted);font-size:10px;">STATUS</div>
           <div>Open to Work · Stage / Alternance</div>
@@ -1182,33 +1294,35 @@ footer a { color: var(--orange); text-decoration: none; }
 <!-- ══ ABOUT ══ -->
 <section class="sec" id="about">
   <span class="sec-lbl reveal">01. À propos</span>
-  <h2 class="sec-title reveal">Le profil derrière <span>le terminal</span></h2>
-  <p class="sec-desc reveal">Étudiant en BTS SIO SISR, je me forme aux systèmes et réseaux avec une première expérience concrète en administration Windows/Linux, configuration réseau et support IT.</p>
+  <h2 class="sec-title reveal">Présentation</h2>
 
-  <div class="grid3">
-    <div class="card reveal">
-      <div class="card-ico">🌐</div>
-      <h3>Réseaux & Infra</h3>
-      <p>Réseaux Cisco, VLAN, adressage IP et supervision réseau : des bases que je consolide en cours et en pratique.</p>
-      <div class="tags"><span class="tag">Cisco</span><span class="tag">VLAN</span><span class="tag">IP</span></div>
+  <div class="about-layout">
+    <div class="about-text reveal">
+      <p><strong>Rayan Arab</strong> est étudiant en BTS SIO option SISR, en formation aux systèmes et réseaux avec une première expérience concrète en administration Windows/Linux, configuration réseau et support IT.</p>
+      <p>Il s’intéresse à l’infrastructure au sens large : réseaux Cisco, adressage et supervision, mais aussi diagnostic matériel et maintenance des postes. La cybersécurité vient compléter cette pratique, comme un prolongement naturel de l’administration systèmes.</p>
+      <p>Son objectif est simple : rejoindre une entreprise où évoluer sur la durée, préparer une licence professionnelle réseaux ou cybersécurité, puis se spécialiser. Pas de plan B, une direction claire.</p>
+
+      <ul class="about-points">
+        <li>Administration Windows / Linux</li>
+        <li>Configuration & supervision réseau</li>
+        <li>Réseaux Cisco, VLAN, adressage IP</li>
+        <li>Support IT & dépannage</li>
+        <li>Diagnostic matériel et logiciel</li>
+        <li>Veille cybersécurité</li>
+      </ul>
     </div>
-    <div class="card reveal">
-      <div class="card-ico">🛡️</div>
-      <h3>Cybersécurité</h3>
-      <p>Je m’intéresse à la cybersécurité comme prolongement naturel de l’administration systèmes et réseaux.</p>
-      <div class="tags"><span class="tag">Infrastructure</span><span class="tag">Accès</span><span class="tag">Bonnes pratiques</span></div>
-    </div>
-    <div class="card reveal">
-      <div class="card-ico">🔧</div>
-      <h3>Hardware & Montage</h3>
-      <p>Diagnostic matériel et logiciel, remplacement de composants, installation de pilotes et mise à jour du firmware.</p>
-      <div class="tags"><span class="tag">Diagnostic</span><span class="tag">Pilotes</span><span class="tag">Firmware</span></div>
-    </div>
-    <div class="card reveal">
-      <div class="card-ico">🚀</div>
-      <h3>Objectif carrière</h3>
-      <p>Trouver une entreprise où évoluer sur la durée, viser une licence pro réseaux ou cybersécurité, puis une vraie spécialisation. Pas de plan B, juste une direction claire.</p>
-      <div class="tags"><span class="tag">Licence Pro</span><span class="tag">Évolution</span><span class="tag">Long terme</span></div>
+
+    <div class="approach-panel reveal">
+      <span class="approach-panel-lbl">Ma méthode</span>
+      <ul class="approach-list">
+        <li><span class="approach-num">01</span><span>Identifier le problème signalé</span></li>
+        <li><span class="approach-num">02</span><span>Reproduire et isoler la panne</span></li>
+        <li><span class="approach-num">03</span><span>Vérifier matériel, pilotes et configuration</span></li>
+        <li><span class="approach-num">04</span><span>Consulter la documentation ou les journaux</span></li>
+        <li><span class="approach-num">05</span><span>Appliquer un correctif ciblé</span></li>
+        <li><span class="approach-num">06</span><span>Tester la stabilité de la solution</span></li>
+        <li><span class="approach-num">07</span><span>Documenter l’intervention</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -1223,37 +1337,37 @@ footer a { color: var(--orange); text-decoration: none; }
 
   <div class="grid3">
     <div class="card reveal">
-      <div class="card-ico">🖥️</div>
+      <div class="card-ico">01</div>
       <h3>Réseaux Cisco</h3>
       <p>Comprendre et configurer les bases d’une infrastructure réseau : adressage IP, VLAN et diagnostic des problèmes de connexion.</p>
       <div class="tags"><span class="tag">Cisco</span><span class="tag">VLAN</span><span class="tag">Adressage IP</span></div>
     </div>
     <div class="card reveal">
-      <div class="card-ico">📡</div>
+      <div class="card-ico">02</div>
       <h3>Supervision réseau</h3>
       <p>Surveiller les équipements et repérer les incidents pour conserver un réseau disponible et facile à dépanner.</p>
       <div class="tags"><span class="tag">Supervision</span><span class="tag">Diagnostic</span><span class="tag">Support IT</span></div>
     </div>
     <div class="card reveal">
-      <div class="card-ico">💻</div>
+      <div class="card-ico">03</div>
       <h3>Virtualisation</h3>
       <p>Créer et utiliser des environnements virtuels pour tester des installations et observer le fonctionnement des systèmes.</p>
       <div class="tags"><span class="tag">VirtualBox</span><span class="tag">VMware</span></div>
     </div>
     <div class="card reveal">
-      <div class="card-ico">🔍</div>
+      <div class="card-ico">04</div>
       <h3>Windows & Linux</h3>
       <p>Installer, configurer et maintenir des postes sous Windows et Linux, avec une attention portée à la stabilité et au dépannage.</p>
       <div class="tags"><span class="tag">Windows</span><span class="tag">Linux</span><span class="tag">Maintenance</span></div>
     </div>
     <div class="card reveal">
-      <div class="card-ico">🌍</div>
+      <div class="card-ico">05</div>
       <h3>Support & diagnostic</h3>
       <p>Identifier une panne matérielle ou logicielle, installer les pilotes et remettre un poste en service.</p>
       <div class="tags"><span class="tag">Diagnostic matériel</span><span class="tag">Pilotes</span><span class="tag">BIOS</span></div>
     </div>
     <div class="card reveal">
-      <div class="card-ico">🎯</div>
+      <div class="card-ico">06</div>
       <h3>Déploiement & outils d’IA</h3>
       <p>Déployer des images système et utiliser des outils d’IA générative pour accélérer la création de solutions utiles.</p>
       <div class="tags"><span class="tag">Images système</span><span class="tag">Windows 11</span><span class="tag">IA générative</span></div>
@@ -1282,7 +1396,6 @@ footer a { color: var(--orange); text-decoration: none; }
         </div>
       </div>
       <div><video class="project-video" autoplay muted loop playsinline preload="auto" src="app.mp4" aria-label="Démonstration de l'application STV"></video><span class="video-note">Démonstration de l’application STV</span></div>
-      <div class="proj-arrow">↗</div>
     </div>
 
     <!-- Mise à niveau des salles -->
@@ -1429,7 +1542,7 @@ footer a { color: var(--orange); text-decoration: none; }
 
   <details class="veille-toggle reveal">
     <summary>
-      <span>📖 Voir la chronologie détaillée</span>
+      <span>Voir la chronologie détaillée</span>
       <span class="vt-count">12 événements sourcés</span>
       <span class="vt-chevron">↓</span>
     </summary>
@@ -1440,12 +1553,12 @@ footer a { color: var(--orange); text-decoration: none; }
         <div class="vq-head"><h4>Semestre 1 <span>· Sept. 2025 → Fév. 2026</span></h4></div>
         <div class="vq-grid">
           <div class="vq-card">
-            <div class="vq-date">26 sept. 2025</div>
+            <div class="vq-date">18 sept. 2025</div>
             <div class="vq-title">SK hynix franchit une étape sur la HBM4</div>
             <div class="vq-desc">SK hynix finalise sa mémoire HBM4 (+40 % d'efficacité, 10 Gbps/broche) pendant que Micron livre ses premiers échantillons à 11 Gbps.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>⚡ HBM</span><span>🏭 Fabricants</span></div>
-              <a href="https://www.astutegroup.com/news/general/sk-hynix-holds-62-of-hbm-micron-overtakes-samsung-2026-battle-pivots-to-hbm4/" target="_blank" class="vq-source">Astute Group ↗</a>
+              <div class="vq-tags"><span>HBM</span><span>Fabricants</span></div>
+              <a href="https://vipress.net/sk-hynix-lance-la-production-de-volume-des-premieres-memoires-hbm4/" target="_blank" class="vq-source">VIPress.net ↗</a>
             </div>
           </div>
           <div class="vq-card">
@@ -1453,8 +1566,8 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">OpenAI verrouille jusqu'à 40 % de la DRAM mondiale</div>
             <div class="vq-desc">Accords Stargate avec Samsung et SK hynix : jusqu'à 900 000 wafers DRAM/mois visés, plus la construction de data centers en Corée du Sud.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>🤖 IA</span><span>💰 Marché</span></div>
-              <a href="https://openai.com/index/samsung-and-sk-join-stargate/" target="_blank" class="vq-source">OpenAI ↗</a>
+              <div class="vq-tags"><span>IA</span><span>Marché</span></div>
+              <a href="https://hardware.developpez.com/actu/378644/Le-projet-Stargate-d-OpenAI-devrait-consommer-jusqu-a-40-pourcent-de-la-production-mondiale-de-DRAM-un-accord-a-ete-conclu-avec-Samsung-et-SK-hynix-pour-un-volume-pouvant-atteindre-900-000-plaquettes-par-mois/" target="_blank" class="vq-source">Developpez.com ↗</a>
             </div>
           </div>
           <div class="vq-card">
@@ -1462,26 +1575,26 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">Micron met fin à la marque Crucial</div>
             <div class="vq-desc">Micron arrête progressivement Crucial (RAM/SSD grand public) pour rediriger sa production vers les clients IA, plus rentables.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>🏭 Fabricants</span><span>💰 Marché</span></div>
+              <div class="vq-tags"><span>Fabricants</span><span>Marché</span></div>
               <a href="https://next.ink/212799/memoire-vive-ssd-micron-sort-du-marche-grand-public-et-met-fin-a-la-marque-crucial/" target="_blank" class="vq-source">Next.ink ↗</a>
             </div>
           </div>
           <div class="vq-card">
-            <div class="vq-date">Fin déc. 2025</div>
+            <div class="vq-date">Décembre 2025</div>
             <div class="vq-title">Bataille pour la HBM4 « 16-Hi »</div>
             <div class="vq-desc">NVIDIA voudrait de la HBM4 en 16 couches empilées dès fin 2026. Le DDR5 16 Go dépasse 27 $ sur le marché spot, soit +298 % en trois mois.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>⚡ HBM</span><span>💰 Marché</span></div>
-              <a href="https://www.tweaktown.com/news/109495/sk-hynix-samsung-and-micron-fighting-for-nvidia-supply-contracts-for-new-16-hi-hbm4-orders/index.html" target="_blank" class="vq-source">TweakTown ↗</a>
+              <div class="vq-tags"><span>HBM</span><span>Marché</span></div>
+              <a href="https://hardwareand.co/actualites/breves/hbm4-samsung-bien-decide-a-croquer-une-grosse-part-du-gateau-nvidia" target="_blank" class="vq-source">Hardware & Co ↗</a>
             </div>
           </div>
           <div class="vq-card">
-            <div class="vq-date">26-29 jan. 2026</div>
+            <div class="vq-date">12 février 2026</div>
             <div class="vq-title">Début officiel de la production de masse HBM4</div>
             <div class="vq-desc">Samsung et SK hynix lancent simultanément la HBM4 (interface 2048 bits). Le marché HBM est projeté à +58 % en 2026 (54,6 Md$).</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>⚡ HBM</span><span>🏭 Fabricants</span></div>
-              <a href="https://www.eetimes.com/the-state-of-hbm4-chronicled-at-ces-2026/" target="_blank" class="vq-source">EE Times ↗</a>
+              <div class="vq-tags"><span>HBM</span><span>Fabricants</span></div>
+              <a href="https://www.cryptopolitan.com/fr/samsung-challenges-sk-hynix-with-hbm4/" target="_blank" class="vq-source">Cryptopolitan FR ↗</a>
             </div>
           </div>
           <div class="vq-card">
@@ -1489,7 +1602,7 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">Premières conséquences sur les cartes graphiques</div>
             <div class="vq-desc">NVIDIA réduirait de 30 à 40 % ses livraisons de RTX 50, faute de mémoire GDDR7 suffisante — un problème de composants, pas de demande.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>🖥️ NVIDIA</span><span>💰 Marché</span></div>
+              <div class="vq-tags"><span>NVIDIA</span><span>Marché</span></div>
               <a href="https://powerlab.fr/guideconseilspc/penurie-de-memoire-et-prix-des-gpu-faut-il-acheter-sa-rtx-50-series-maintenant-n211" target="_blank" class="vq-source">Powerlab ↗</a>
             </div>
           </div>
@@ -1505,7 +1618,7 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">Résultats historiques chez Samsung</div>
             <div class="vq-desc">Bénéfice d'exploitation trimestriel record de 37,9 Md$ (+755 % sur un an), porté par la mémoire. Le record sera rebattu en juillet, avec 58 Md$ au T2.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>🏭 Fabricants</span><span>💰 Marché</span></div>
+              <div class="vq-tags"><span>Fabricants</span><span>Marché</span></div>
               <a href="https://www.boursorama.com/actualite-economique/actualites/samsung-electronics-prevoit-un-benefice-d-exploitation-record-au-1er-trimestre-6c0b7f7ad1e7a7ae02b4da353e53f600" target="_blank" class="vq-source">Boursorama ↗</a>
             </div>
           </div>
@@ -1514,7 +1627,7 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">Gartner : jusqu'à +130 % sur DRAM + SSD combinés</div>
             <div class="vq-desc">Hausse combinée pouvant atteindre 130 % sur l'année. Pour Counterpoint, résorber la pénurie demanderait +12 %/an de capacité, contre 7,5 % prévus.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>💰 Marché</span></div>
+              <div class="vq-tags"><span>Marché</span></div>
               <a href="https://dropreference.com/fr/blog/news/penurie-memoire-dram-ssd-2026-prix-hausse-2028" target="_blank" class="vq-source">DropReference ↗</a>
             </div>
           </div>
@@ -1523,8 +1636,8 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">De nouvelles pistes de recherche émergent</div>
             <div class="vq-desc">NEO Semiconductor valide une architecture 3D X-DRAM avec l'université NYCU ; des chercheurs (dont imec) présentent une mémoire hybride NAND/DRAM inspirée des capteurs CCD.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>🔬 R&D</span><span>🧩 Architecture</span></div>
-              <a href="https://www.techradar.com/pro/new-3d-memory-architecture-revives-old-camera-technology-to-smash-through-ai-memory-wall-nand-dram-hybrid-promises-to-make-memory-cheaper-faster-and-with-unlimited-endurance" target="_blank" class="vq-source">TechRadar ↗</a>
+              <div class="vq-tags"><span>R&D</span><span>Architecture</span></div>
+              <a href="https://pausehardware.com/3d-x-dram-neo-poc/" target="_blank" class="vq-source">PauseHardware ↗</a>
             </div>
           </div>
           <div class="vq-card">
@@ -1532,8 +1645,8 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">NVIDIA officialise Vera Rubin et ses fournisseurs HBM4</div>
             <div class="vq-desc">Au GTC Taipei, Samsung, SK hynix et Micron sont confirmés comme fournisseurs HBM4. L'action Samsung bondit de plus de 10 % à Séoul.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>🖥️ NVIDIA</span><span>⚡ HBM</span></div>
-              <a href="https://www.techtimes.com/articles/317539/20260602/nvidia-vera-rubin-enters-full-production-samsung-sk-hynix-micron-named-hbm4-suppliers.htm" target="_blank" class="vq-source">TechTimes ↗</a>
+              <div class="vq-tags"><span>NVIDIA</span><span>HBM</span></div>
+              <a href="https://fr.investing.com/news/stock-market-news/nvidia-certifie-samsung-sk-hynix-et-micron-pour-la-memoire-hbm4-de-vera-rubin-3450225" target="_blank" class="vq-source">Investing.com ↗</a>
             </div>
           </div>
           <div class="vq-card">
@@ -1541,8 +1654,8 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">AMD lance officiellement l'Instinct MI400</div>
             <div class="vq-desc">Gravé en 2 nm chez TSMC : 432 Go de HBM4 par puce, et un rack Helios cumulant jusqu'à 31 To de HBM4 sur 72 accélérateurs.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>⚡ HBM</span><span>🖥️ AMD</span></div>
-              <a href="https://newsroom.amd.com/news/aai-2026-mi400-instinct-update/" target="_blank" class="vq-source">AMD Newsroom ↗</a>
+              <div class="vq-tags"><span>HBM</span><span>AMD</span></div>
+              <a href="https://pausehardware.com/amd-instinct-mi400-helios/" target="_blank" class="vq-source">PauseHardware ↗</a>
             </div>
           </div>
           <div class="vq-card">
@@ -1550,8 +1663,8 @@ footer a { color: var(--orange); text-decoration: none; }
             <div class="vq-title">CXMT, le « 4ᵉ géant » chinois de la DRAM, entre en bourse</div>
             <div class="vq-desc">Le fabricant chinois lève 8,6 Md$ à Shanghai (+466 % dès la 1ère séance). Avec ~8 % du marché mondial, il vise 30 % d'ici 2030.</div>
             <div class="vq-foot">
-              <div class="vq-tags"><span>🏭 Fabricants</span><span>💰 Marché</span></div>
-              <a href="https://www.cnbc.com/2026/07/31/cxmts-sk-hynix-samsung-micron-memory-chip.html" target="_blank" class="vq-source">CNBC ↗</a>
+              <div class="vq-tags"><span>Fabricants</span><span>Marché</span></div>
+              <a href="https://www.boursorama.com/bourse/actualites/qu-est-ce-que-cxmt-et-comment-est-elle-devenue-le-leader-chinois-du-marche-des-dram-42d8fc3f17a2ae596cd51dcbaafa5f8a" target="_blank" class="vq-source">Boursorama ↗</a>
             </div>
           </div>
         </div>
@@ -1570,23 +1683,23 @@ footer a { color: var(--orange); text-decoration: none; }
   <p class="sec-desc">Disponible pour un stage, une alternance ou simplement échanger sur une opportunité en réseaux, infra ou cybersécurité.</p>
   <div class="contact-cards">
     <a href="mailto:arab.rayan9307@gmail.com" class="c-card">
-      <div class="c-ico">✉️</div>
+      <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg></div>
       <div><h4>Email</h4><p>arab.rayan9307@gmail.com</p></div>
     </a>
     <a href="tel:+33766329348" class="c-card">
-      <div class="c-ico">📱</div>
+      <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3.5h3.2l1.4 4.4-2.1 1.6a12.5 12.5 0 0 0 5.5 5.5l1.6-2.1 4.4 1.4v3.2c0 1-1 1.6-2 1.4-4-1-9.4-6.4-10.4-10.4-.2-1 .4-2 1.4-2z"/></svg></div>
       <div><h4>Téléphone</h4><p>+33 7 66 32 93 48</p></div>
     </a>
     <div class="c-card">
-      <div class="c-ico">📍</div>
+      <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></div>
       <div><h4>Localisation</h4><p>Île-de-France, France</p></div>
     </div>
     <div class="c-card">
-      <div class="c-ico">🎯</div>
+      <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg></div>
       <div><h4>Disponibilité</h4><p>Stage · Alternance · CDI</p></div>
     </div>
   </div>
-  <a href="mailto:arab.rayan9307@gmail.com" class="email-btn">✉ arab.rayan9307@gmail.com</a>
+  <a href="mailto:arab.rayan9307@gmail.com" class="email-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg> arab.rayan9307@gmail.com</a>
 </div>
 
 <!-- ══ FOOTER ══ -->
@@ -1598,7 +1711,7 @@ footer a { color: var(--orange); text-decoration: none; }
 <!-- ══ LINKEDIN POPUP ══ -->
 <div class="li-popup" id="liPopup">
   <button class="li-popup-close" onclick="document.getElementById('liPopup').classList.remove('show')">✕</button>
-  <div class="li-popup-icon">💼</div>
+  <div class="li-popup-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.28 8.75h3.4V21h-3.4V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.21-1.77 3.44 0 4.08 2.26 4.08 5.2V21h-3.4v-6.4c0-1.53-.03-3.49-2.13-3.49-2.14 0-2.47 1.67-2.47 3.38V21H9.5V8.75z"/></svg></div>
   <h4>On se connecte ?</h4>
   <p>Retrouvez mes projets, mes stages et mon actu réseaux / cyber sur LinkedIn.</p>
   <!-- Lien LinkedIn -->
@@ -1621,6 +1734,17 @@ footer a { color: var(--orange); text-decoration: none; }
 </div>
 
 <script>
+// Halo lumineux qui suit le curseur
+const cursorGlow = document.getElementById('cursorGlow');
+if (cursorGlow && matchMedia('(hover: hover)').matches) {
+  let glowShown = false;
+  window.addEventListener('mousemove', e => {
+    cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    if (!glowShown) { cursorGlow.classList.add('is-visible'); glowShown = true; }
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => cursorGlow.classList.remove('is-visible'));
+}
+
 // Reveal on scroll
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
