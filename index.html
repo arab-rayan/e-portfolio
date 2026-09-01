@@ -35,7 +35,7 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 2px; }
 
-/* ══ HALO LUMIÈRE — suit le curseur ══ */
+/* halo qui suit le curseur */
 .cursor-glow {
   position: fixed;
   top: 0;
@@ -57,7 +57,7 @@ body {
   .cursor-glow { display: none; }
 }
 
-/* ══ NAV glassmorphism ══ */
+/* nav */
 nav {
   position: fixed;
   top: 14px;
@@ -117,7 +117,7 @@ nav {
 }
 .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
-/* ══ HERO ══ */
+/* hero */
 .hero-wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -237,7 +237,7 @@ nav {
   font-family: 'Space Mono', monospace;
 }
 
-/* ══ CODE WINDOW ══ */
+/* code window (bloc à droite du hero) */
 .code-win {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -329,7 +329,7 @@ nav {
   100% { transform: scale(1.9); opacity: 0; }
 }
 
-/* ══ DIVIDER ══ */
+/* divider */
 .div {
   width: calc(100% - 120px);
   margin: 0 auto;
@@ -338,7 +338,7 @@ nav {
   max-width: calc(1200px - 120px);
 }
 
-/* ══ SECTIONS ══ */
+/* sections générales */
 .sec {
   max-width: 1200px;
   margin: 0 auto;
@@ -372,7 +372,7 @@ nav {
   margin-bottom: 50px;
 }
 
-/* ══ CARDS ══ */
+/* cards */
 .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
 .grid2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
 
@@ -423,7 +423,7 @@ nav {
   border: 1px solid var(--border);
 }
 
-/* ══ ABOUT — layout éditorial ══ */
+/* about */
 .about-layout {
   display: grid;
   grid-template-columns: 1.3fr 0.9fr;
@@ -502,7 +502,7 @@ nav {
   .about-points { grid-template-columns: 1fr; }
 }
 
-/* ══ PROJECTS ══ */
+/* projects */
 .proj-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -583,7 +583,7 @@ nav {
 }
 .nas-gif-wrap img { max-height: 130px; object-fit: contain; border-radius: 6px; }
 
-/* ══ TIMELINE ══ */
+/* timeline (parcours) */
 .timeline { position: relative; padding-left: 28px; }
 .timeline::before {
   content: '';
@@ -694,7 +694,7 @@ nav {
   .stage-bubble::before { left: 28px; top: -12px; bottom: auto; border-left: 0; border-bottom: 0; border-top: 2px solid #101326; border-right: 2px solid #101326; transform: rotate(225deg); }
 }
 
-/* ══ CERTIFS ══ */
+/* certifs */
 .cert-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
@@ -741,7 +741,7 @@ nav {
 .cert-placeholder span { font-size: 1.8rem; }
 .cert-placeholder p { font-size: 11px; color: var(--muted); text-align: center; padding: 0 8px; font-weight: 600; }
 
-/* ══ VEILLE ══ */
+/* veille techno */
 .veille-problematique {
   background: linear-gradient(135deg, rgba(47,111,255,0.08), rgba(47,111,255,0.02));
   border: 1px solid rgba(47,111,255,0.22);
@@ -888,7 +888,7 @@ nav {
 .veille-synthese p { font-size: 13.5px; color: var(--muted); line-height: 1.75; }
 .veille-synthese p + p { margin-top: 12px; }
 
-/* ══ LINKEDIN POPUP ══ */
+/* popup linkedin */
 .li-popup {
   position: fixed;
   bottom: 22px;
@@ -935,7 +935,7 @@ nav {
 }
 .li-popup-btn:hover { transform: translateY(-1px); opacity: 0.9; }
 
-/* ══ EASTER EGG ══ */
+/* easter egg logo */
 .rebuild-overlay {
   position: fixed;
   inset: 0;
@@ -1064,7 +1064,7 @@ body.system-rebuild nav {
   .vq-grid { grid-template-columns: 1fr; }
 }
 
-/* ══ CONTACT BANNER ══ */
+/* bandeau contact */
 .contact-banner {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1135,7 +1135,7 @@ body.system-rebuild nav {
 }
 .email-btn:hover { transform: translateY(-2px); opacity: 0.88; }
 
-/* ══ FOOTER ══ */
+/* footer */
 footer {
   border-top: 1px solid var(--border);
   padding: 28px 60px;
@@ -1148,7 +1148,7 @@ footer {
 footer p { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
 footer a { color: var(--orange); text-decoration: none; }
 
-/* ══ MODAL ══ */
+/* modal image */
 .modal {
   display: none;
   position: fixed; inset: 0;
@@ -1170,7 +1170,7 @@ footer a { color: var(--orange); text-decoration: none; }
 .modal-close:hover { transform: scale(1.1); }
 .modal img { max-width: 88vw; max-height: 84vh; object-fit: contain; border-radius: 10px; }
 
-/* ══ ANIMATIONS ══ */
+/* animations */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1187,7 +1187,7 @@ footer a { color: var(--orange); text-decoration: none; }
 }
 .reveal.vis { opacity: 1; transform: none; }
 
-/* ══ RESPONSIVE ══ */
+/* responsive */
 @media (max-width: 960px) {
   .hero-wrap { grid-template-columns: 1fr; padding: 110px 30px 60px; gap: 40px; }
   .code-win { display: none; }
@@ -1212,7 +1212,7 @@ footer a { color: var(--orange); text-decoration: none; }
 <body>
 <div class="cursor-glow" id="cursorGlow"></div>
 
-<!-- ══ NAV ══ -->
+<!-- nav -->
 <nav>
   <a href="#home" class="nav-logo">&lt;eportfolio/&gt;</a>
   <ul class="nav-links">
@@ -1226,7 +1226,7 @@ footer a { color: var(--orange); text-decoration: none; }
   <a href="mailto:arab.rayan9307@gmail.com" class="nav-cta">Me contacter</a>
 </nav>
 
-<!-- ══ HERO ══ -->
+<!-- hero -->
 <div id="home" style="min-height:100vh;">
   <div class="hero-wrap">
     <!-- LEFT -->
@@ -1291,16 +1291,16 @@ footer a { color: var(--orange); text-decoration: none; }
 
 <div class="div"></div>
 
-<!-- ══ ABOUT ══ -->
+<!-- about -->
 <section class="sec" id="about">
   <span class="sec-lbl reveal">01. À propos</span>
   <h2 class="sec-title reveal">Présentation</h2>
 
   <div class="about-layout">
     <div class="about-text reveal">
-      <p><strong>Rayan Arab</strong> est étudiant en BTS SIO option SISR, en formation aux systèmes et réseaux avec une première expérience concrète en administration Windows/Linux, configuration réseau et support IT.</p>
-      <p>Il s’intéresse à l’infrastructure au sens large : réseaux Cisco, adressage et supervision, mais aussi diagnostic matériel et maintenance des postes. La cybersécurité vient compléter cette pratique, comme un prolongement naturel de l’administration systèmes.</p>
-      <p>Son objectif est simple : rejoindre une entreprise où évoluer sur la durée, préparer une licence professionnelle réseaux ou cybersécurité, puis se spécialiser. Pas de plan B, une direction claire.</p>
+      <p>Je m’appelle <strong>Rayan Arab</strong>, étudiant en BTS SIO option SISR, en formation aux systèmes et réseaux. Ce qui m’intéresse avant tout, c’est l’administration système, réseau et infrastructure — le genre de sujets qu’on retrouve côté DSI. J’ai déjà une première expérience concrète en administration Windows/Linux, configuration réseau et support IT.</p>
+      <p>Je m’intéresse aussi aux réseaux Cisco, à l’adressage et à la supervision, ainsi qu’au diagnostic matériel et à la maintenance des postes. La cybersécurité vient compléter cette pratique, comme un prolongement naturel de l’administration systèmes.</p>
+      <p>Mon objectif est simple : rejoindre une entreprise où évoluer sur la durée, préparer une licence professionnelle réseaux ou cybersécurité, puis me spécialiser. Pas de plan B, une direction claire.</p>
 
       <ul class="about-points">
         <li>Administration Windows / Linux</li>
@@ -1329,7 +1329,7 @@ footer a { color: var(--orange); text-decoration: none; }
 
 <div class="div"></div>
 
-<!-- ══ SKILLS ══ -->
+<!-- skills -->
 <section class="sec" id="skills">
   <span class="sec-lbl reveal">02. Compétences</span>
   <h2 class="sec-title reveal">Mon <span>arsenal</span> technique</h2>
@@ -1377,7 +1377,7 @@ footer a { color: var(--orange); text-decoration: none; }
 
 <div class="div"></div>
 
-<!-- ══ PROJECTS ══ -->
+<!-- projects -->
 <section class="sec" id="projets">
   <span class="sec-lbl reveal">03. Projets</span>
   <h2 class="sec-title reveal">Travaux <span>réels</span></h2>
@@ -1401,8 +1401,8 @@ footer a { color: var(--orange); text-decoration: none; }
     <!-- Mise à niveau des salles -->
     <div class="proj-card reveal">
       <span class="proj-num">// PROJET 02 — STAGE · PARC INFORMATIQUE</span>
-      <h3 class="proj-title">Huit salles remises à niveau</h3>
-      <p class="proj-desc">Remise en état de huit salles du lycée : restauration d’images Windows, installation des derniers pilotes, mises à jour et configuration allégée pour limiter les pannes et faciliter la maintenance.</p>
+      <h3 class="proj-title">50 postes remis à niveau</h3>
+      <p class="proj-desc">Remise en état de 50 postes répartis dans les salles du lycée : restauration d’images Windows, installation des derniers pilotes, mises à jour et configuration allégée pour limiter les pannes et faciliter la maintenance.</p>
       <div class="tags" style="margin-top:14px;">
         <span class="tag">Windows 11</span><span class="tag">Images système</span><span class="tag">Pilotes</span><span class="tag">Diagnostic</span>
       </div>
@@ -1430,7 +1430,7 @@ footer a { color: var(--orange); text-decoration: none; }
 
 <div class="div"></div>
 
-<!-- ══ PARCOURS ══ -->
+<!-- parcours -->
 <section class="sec" id="parcours">
   <span class="sec-lbl reveal">04. Parcours</span>
   <h2 class="sec-title reveal">Formation & <span>Expériences</span></h2>
@@ -1505,7 +1505,7 @@ footer a { color: var(--orange); text-decoration: none; }
 
 <div class="div"></div>
 
-<!-- ══ VEILLE ══ -->
+<!-- veille -->
 <section class="sec" id="veille">
   <span class="sec-lbl reveal">05. Veille</span>
   <h2 class="sec-title reveal">Veille : la <span>mémoire informatique</span></h2>
@@ -1676,7 +1676,7 @@ footer a { color: var(--orange); text-decoration: none; }
 
 <div class="div" style="margin-bottom:60px;"></div>
 
-<!-- ══ CONTACT ══ -->
+<!-- contact -->
 <div class="contact-banner reveal" id="contact">
   <span class="sec-lbl" style="display:block;margin-bottom:14px;">06. Contact</span>
   <h2 class="sec-title">Démarrons quelque chose <span>ensemble</span></h2>
@@ -1702,13 +1702,13 @@ footer a { color: var(--orange); text-decoration: none; }
   <a href="mailto:arab.rayan9307@gmail.com" class="email-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg> arab.rayan9307@gmail.com</a>
 </div>
 
-<!-- ══ FOOTER ══ -->
+<!-- footer -->
 <footer>
   <p>© <span id="year">2026</span> — <a href="#">Arab Rayan</a> · BTS SIO SISR</p>
   <p>Made with <a href="#veille">curiosité</a> & détermination</p>
 </footer>
 
-<!-- ══ LINKEDIN POPUP ══ -->
+<!-- popup linkedin -->
 <div class="li-popup" id="liPopup">
   <button class="li-popup-close" onclick="document.getElementById('liPopup').classList.remove('show')">✕</button>
   <div class="li-popup-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.28 8.75h3.4V21h-3.4V8.75zM9.5 8.75h3.26v1.68h.05c.45-.86 1.56-1.77 3.21-1.77 3.44 0 4.08 2.26 4.08 5.2V21h-3.4v-6.4c0-1.53-.03-3.49-2.13-3.49-2.14 0-2.47 1.67-2.47 3.38V21H9.5V8.75z"/></svg></div>
@@ -1727,7 +1727,7 @@ footer a { color: var(--orange); text-decoration: none; }
   </div>
 </div>
 
-<!-- ══ MODAL ══ -->
+<!-- modal -->
 <div class="modal" id="modal">
   <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
   <img id="modal-img" src="" alt="">
@@ -1797,7 +1797,7 @@ window.addEventListener('scroll', () => {
   });
 }, { passive: true });
 
-// Interface sounds: short tones stay local and do not require an audio file.
+// petits sons d'interface générés en JS (pas de fichier audio)
 let audioContext;
 function playTone(frequency, duration, type = 'sine', volume = 0.035) {
   audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
