@@ -566,6 +566,21 @@ nav {
   font-family: 'Space Mono', monospace;
   font-size: 10px;
 }
+.phone-video-wrap {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.project-video-phone {
+  width: 100%;
+  max-width: 210px;
+  aspect-ratio: 1180 / 2386;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: #050509;
+  pointer-events: none;
+}
 .pl { display: flex; gap: 14px; }
 .pln { color: #1e1e1e; min-width: 14px; font-size: 11px; }
 
@@ -1395,7 +1410,7 @@ footer a { color: var(--orange); text-decoration: none; }
 <section class="sec" id="projets">
   <span class="sec-lbl reveal">03. Projets</span>
   <h2 class="sec-title reveal">Travaux <span>réels</span></h2>
-  <p class="sec-desc reveal">Trois réalisations menées sur le terrain, entre maintenance, déploiement, stockage et création d’un outil utile.</p>
+  <p class="sec-desc reveal">Quatre réalisations menées sur le terrain, entre maintenance, déploiement, stockage, organisation et création d’un outil utile.</p>
 
   <div class="proj-grid">
 
@@ -1437,6 +1452,18 @@ footer a { color: var(--orange); text-decoration: none; }
         <p>Tu veux découvrir mon projet NAS ?</p>
         <a href="https://arab-rayan.github.io/projet-nas" target="_blank" rel="noopener">Voir le projet ↗</a>
       </div>
+    </div>
+
+    <!-- After Work BTS SIO -->
+    <div class="proj-card reveal">
+      <span class="proj-num">// PROJET 04 — BTS SIO · COHÉSION D’ÉQUIPE</span>
+      <h3 class="proj-title">After Work BTS SIO</h3>
+      <p class="proj-desc">Organisation d’un after work annuel réunissant les étudiants actuels et les anciens du BTS SIO du lycée, toutes promotions confondues. Dans la continuité de cette dynamique, une cagnotte est actuellement en cours entre les 1ʳᵉ et 2ᵉ années pour financer un voyage commun aux deux promotions.</p>
+      <div class="tags" style="margin-top:14px;">
+        <span class="tag">Organisation</span><span class="tag">Cohésion de groupe</span><span class="tag">Gestion de budget</span><span class="tag">Événementiel</span>
+      </div>
+      <div class="phone-video-wrap"><video class="project-video-phone" autoplay muted loop playsinline preload="auto" src="afterwork.mp4" aria-label="Vidéo de l'after work BTS SIO"></video></div>
+      <span class="video-note" style="text-align:center;">Vidéo de l’after work BTS SIO</span>
     </div>
 
   </div>
