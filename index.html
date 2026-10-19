@@ -1745,6 +1745,139 @@ footer a { color: var(--orange); text-decoration: none; }
   .hero-stats { gap: 28px; }
   .hero-btns { flex-direction: column; }
 }
+
+/* =========================================================
+   v4 — verre translucide, lumières colorées, formes flottantes
+   ========================================================= */
+@property --hue { syntax: '<number>'; inherits: true; initial-value: 215; }
+@property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+:root {
+  --glass: linear-gradient(150deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.028) 48%, rgba(255,255,255,0.055) 100%);
+  --shine: linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.2) 50%, transparent 58%);
+  --glass-edge: rgba(255,255,255,0.13);
+  --glass-hi: inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(255,255,255,0.03);
+  --glass-drop: 0 18px 48px rgba(0,0,0,0.3);
+  --blur: blur(16px) saturate(155%);
+}
+html, body { overflow-x: clip; }
+
+/* lumières d'ambiance : leur teinte change avec la section */
+.ambient { --hue: 215; transition: --hue 1.8s ease; }
+.ambient i:nth-child(1) { background: radial-gradient(circle, hsl(var(--hue) 80% 62% / 0.24), transparent 62%); }
+.ambient i:nth-child(2) { background: radial-gradient(circle, hsl(calc(var(--hue) + 55) 75% 58% / 0.2), transparent 62%); }
+.ambient i:nth-child(3) {
+  width: 46vmax; height: 46vmax; top: 34%; left: 48%;
+  background: radial-gradient(circle, hsl(calc(var(--hue) - 45) 85% 60% / 0.15), transparent 60%);
+  animation: drift3 34s ease-in-out infinite alternate;
+}
+@keyframes drift3 { to { transform: translate3d(-22vmax, 14vmax, 0) scale(1.25); } }
+
+/* verre */
+.card, .proj-card, .tl-card, .approach-panel, .code-win, .contact-banner, .c-card,
+.vs-col, .vs-fig, .vs-answer, .veille-problematique, .li-popup, .vt-tabs {
+  background-color: transparent;
+  background-image: var(--shine), var(--glass);
+  background-size: 260% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 160% 0, 0 0;
+  border-color: var(--glass-edge);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  box-shadow: var(--glass-hi), var(--glass-drop);
+}
+.c-card { -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: var(--glass-hi); }
+.code-win { box-shadow: var(--glass-hi), 0 30px 80px rgba(0,0,0,0.55), 0 0 70px rgba(47,111,255,0.1); }
+.veille-problematique { background-image: var(--shine), linear-gradient(135deg, rgba(47,111,255,0.18), rgba(255,255,255,0.03)); border-color: rgba(120,160,255,0.28); }
+.vs-answer { background-image: var(--shine), linear-gradient(135deg, rgba(158,175,200,0.18), rgba(47,111,255,0.07)); border-color: rgba(193,204,219,0.3); }
+.li-popup { border-color: rgba(120,160,255,0.3); }
+.vq-card {
+  background-color: transparent; background-image: var(--glass);
+  border-color: var(--glass-edge); box-shadow: var(--glass-hi);
+}
+.tag { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+.btn-g { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+nav {
+  background: rgba(14,16,34,0.42); border: 1px solid rgba(255,255,255,0.13);
+  -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: var(--glass-hi), 0 12px 40px rgba(0,0,0,0.35);
+}
+.card:hover, .proj-card:hover, .tl-card:hover, .c-card:hover { border-color: rgba(255,255,255,0.24); }
+
+/* reflet qui traverse le verre quand un bloc apparaît */
+@keyframes glassShine { from { background-position: 160% 0, 0 0; } to { background-position: -60% 0, 0 0; } }
+.mo .card.reveal.vis, .mo .proj-card.reveal.vis, .mo .c-card.reveal.vis, .mo .vs-col.reveal.vis, .mo .vs-fig.reveal.vis,
+.mo .approach-panel.vis, .mo .contact-banner.vis, .mo .vs-answer.vis, .mo .veille-problematique.vis, .mo .tl-item.vis .tl-card {
+  animation: glassShine 1.5s ease-out .35s 1 backwards;
+}
+
+/* bord lumineux qui tourne autour des deux encadrés clés de la veille */
+.vs-answer, .veille-problematique { position: relative; }
+.vs-answer::before, .veille-problematique::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: conic-gradient(from var(--ang), transparent 0 62%, rgba(193,204,219,0.9) 82%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.mo .vs-answer::before, .mo .veille-problematique::before { animation: ang 6s linear infinite; }
+@keyframes ang { to { --ang: 360deg; } }
+
+/* formes de verre flottantes dans le hero */
+.hero-wrap > div:first-child, .mo .code-win { position: relative; z-index: 2; }
+.gs {
+  position: absolute; z-index: 1; pointer-events: none; opacity: 0;
+  background: linear-gradient(145deg, rgba(255,255,255,0.17), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.22);
+  -webkit-backdrop-filter: blur(8px) saturate(170%); backdrop-filter: blur(8px) saturate(170%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.38), 0 26px 60px rgba(0,0,0,0.4);
+  transition: translate .8s var(--ease-out);
+}
+.gs1 { width: 150px; height: 150px; border-radius: 42px; right: 4%; top: 12%; --r0: -8deg; --r1: 12deg; --dur: 9s; }
+.gs2 { width: 96px; height: 96px; border-radius: 50%; left: 47%; bottom: 10%; --r0: 0deg; --r1: 0deg; --dur: 7s; }
+.gs3 { width: 66px; height: 66px; border-radius: 20px; right: 40%; top: 17%; --r0: 10deg; --r1: -14deg; --dur: 11s; }
+.mo .gs {
+  animation: gsIn 1.4s var(--ease-out) calc(var(--i0) + 1.3s) forwards, gsFloat var(--dur, 9s) ease-in-out calc(var(--i0) + 2.7s) infinite alternate;
+}
+@keyframes gsIn { from { opacity: 0; scale: .5; } to { opacity: 1; scale: 1; } }
+@keyframes gsFloat { from { transform: translateY(0) rotate(var(--r0, -6deg)); } to { transform: translateY(-28px) rotate(var(--r1, 10deg)); } }
+
+/* menu : pastille de verre qui suit le survol */
+.nav-hov {
+  position: absolute; top: 0; left: 0; width: 0; height: 0; border-radius: 10px; list-style: none; opacity: 0; pointer-events: none;
+  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.13); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  transition: transform .45s var(--ease-out), width .45s var(--ease-out), height .45s var(--ease-out), opacity .25s ease;
+}
+
+/* onglets de la veille : bascule sans voile sur les blocs de verre */
+@keyframes panelIn { from { transform: translateY(30px); } to { transform: none; } }
+.vt-panel.on { animation: panelIn .85s var(--ease-out); }
+
+/* petits écrans */
+@media (max-width: 960px) {
+  .mo .grid3 .card.reveal:nth-child(3n+1), .mo .grid3 .card.reveal:nth-child(3n),
+  .mo .proj-grid .proj-card.reveal:nth-child(even), .mo .proj-grid .proj-card.reveal:nth-child(odd) { transform: translateY(60px) scale(.97); }
+  .mo .grid3 .card.reveal.vis, .mo .proj-grid .proj-card.reveal.vis { transform: none; }
+  .gs { display: none; }
+}
+@media (max-width: 600px) {
+  .vt-tabs { display: flex; width: 100%; }
+  .vt-tab { flex: 1; justify-content: center; padding: 11px 6px; font-size: 13px; gap: 6px; }
+  .vt-n { display: none; }
+  .li-popup { left: 12px; right: 12px; bottom: 12px; width: auto; max-width: none; padding: 12px 14px; display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 12px; }
+  .li-popup p { display: none; }
+  .li-popup h4 { margin: 0; }
+  .li-popup-icon { margin: 0; }
+  .li-popup-close { top: -9px; right: -5px; }
+}
+
+/* ordinateur lent : on allège (détecté automatiquement) */
+.lite .card, .lite .proj-card, .lite .tl-card, .lite .approach-panel, .lite .code-win, .lite .contact-banner,
+.lite .vs-col, .lite .vs-fig, .lite .vs-answer, .lite .veille-problematique, .lite .li-popup, .lite .vt-tabs, .lite .btn-g, .lite nav {
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+}
+.lite .card, .lite .proj-card, .lite .cert-card, .lite .c-card, .lite .tl-item { filter: none !important; }
+.lite .gs { display: none; }
+.lite .ambient i { animation: none; }
+.lite .vs-answer::before, .lite .veille-problematique::before { animation: none; }
 </style>
 <script>document.documentElement.classList.add("mo");document.documentElement.style.setProperty("--i0","1.55s");</script>
 </head>
@@ -1756,7 +1889,7 @@ footer a { color: var(--orange); text-decoration: none; }
 </div>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="scroll-progress" aria-hidden="true"></div>
-<div class="ambient" aria-hidden="true"><i></i><i></i></div>
+<div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
 
 <!-- nav -->
 <nav>
@@ -2881,6 +3014,13 @@ document.querySelectorAll('.grid3 .card, .grid2 .card').forEach((c, i) => {
         void p.offsetWidth;
         p.classList.add('on');
         replay(p);
+        $$('.reveal', p).forEach((el, i) => {
+          el.style.transition = 'none';
+          el.classList.remove('vis', 'settled');
+          void el.offsetWidth;
+          el.style.transition = '';
+          setTimeout(() => el.classList.add('vis'), 80 + i * 70);
+        });
       } else {
         p.hidden = true;
         p.classList.remove('on');
@@ -3055,12 +3195,27 @@ document.querySelectorAll('.grid3 .card, .grid2 .card').forEach((c, i) => {
     heroWrap.addEventListener('mouseleave', () => charRects.forEach(c => { c.el.style.translate = ''; }));
   }
 
+  /* Hero : formes de verre flottantes */
+  const shapes = [];
+  if (heroWrap && innerWidth > 960) {
+    [['gs1', 0.6], ['gs2', -1], ['gs3', 1.4]].forEach(([cls, depth]) => {
+      const d = document.createElement('div');
+      d.className = 'gs ' + cls;
+      d.setAttribute('aria-hidden', 'true');
+      heroWrap.appendChild(d);
+      shapes.push({ el: d, depth });
+    });
+  }
+
   /* Hero : fenêtre de code inclinée par la souris */
   const win = $('.code-win');
   const heroLeft = $('.hero-wrap > div:first-child');
   if (win && heroWrap && hoverable) {
     let raf = 0, tx = 0, ty = 0;
     heroWrap.addEventListener('mousemove', e => {
+      shapes.forEach(sh => {
+        sh.el.style.translate = ((e.clientX - innerWidth / 2) / innerWidth * 70 * sh.depth).toFixed(1) + 'px ' + ((e.clientY - innerHeight / 2) / innerHeight * 46 * sh.depth).toFixed(1) + 'px';
+      });
       const r = win.getBoundingClientRect();
       tx = ((e.clientX - (r.left + r.width / 2)) / innerWidth) * 2;
       ty = ((e.clientY - (r.top + r.height / 2)) / innerHeight) * 2;
@@ -3069,7 +3224,7 @@ document.querySelectorAll('.grid3 .card, .grid2 .card').forEach((c, i) => {
         win.style.transform = 'perspective(1100px) rotateY(' + (tx * 9).toFixed(2) + 'deg) rotateX(' + (-ty * 8).toFixed(2) + 'deg)';
       });
     }, { passive: true });
-    heroWrap.addEventListener('mouseleave', () => { win.style.transform = ''; });
+    heroWrap.addEventListener('mouseleave', () => { win.style.transform = ''; shapes.forEach(sh => { sh.el.style.translate = ''; }); });
   }
 
   /* Bandeaux défilants */
@@ -3111,6 +3266,20 @@ document.querySelectorAll('.grid3 .card, .grid2 .card').forEach((c, i) => {
   ind.className = 'nav-ind';
   ind.setAttribute('aria-hidden', 'true');
   $('.nav-links').appendChild(ind);
+  const hov = document.createElement('li');
+  hov.className = 'nav-hov';
+  hov.setAttribute('aria-hidden', 'true');
+  $('.nav-links').prepend(hov);
+  links.forEach(a => a.addEventListener('mouseenter', () => {
+    const fresh = hov.style.opacity !== '1';
+    if (fresh) hov.style.transition = 'none';
+    hov.style.width = a.offsetWidth + 'px';
+    hov.style.height = a.offsetHeight + 'px';
+    hov.style.transform = 'translate(' + a.offsetLeft + 'px,' + a.offsetTop + 'px)';
+    if (fresh) { void hov.offsetWidth; hov.style.transition = ''; }
+    hov.style.opacity = 1;
+  }));
+  $('.nav-links').addEventListener('mouseleave', () => { hov.style.opacity = 0; });
   const targets = links.map(a => ({ a, el: document.getElementById(a.getAttribute('href').slice(1)) })).filter(t => t.el);
   let current = null;
   const placeIndicator = () => {
@@ -3121,11 +3290,26 @@ document.querySelectorAll('.grid3 .card, .grid2 .card').forEach((c, i) => {
   };
 
   /* Boucle principale */
+  const HUES = { about: 250, skills: 190, projets: 275, parcours: 215, veille: 165, contact: 235 };
+  const liteParam = new URLSearchParams(location.search).get('lite');
+  if (liteParam === 'on') root.classList.add('lite');
+  const perfT0 = performance.now();
+  let liteDone = liteParam !== null, frameSamples = [];
   const ambient = $('.ambient');
   let target = scrollY, smooth = target, prevY = target, vel = 0, dirSmooth = 1, last = performance.now();
   const tick = now => {
-    const dt = Math.min(0.05, (now - last) / 1000) || 0.016;
+    const rawDt = (now - last) / 1000;
+    const dt = Math.min(0.05, rawDt) || 0.016;
     last = now;
+    if (!liteDone) {
+      const el = (now - perfT0) / 1000;
+      if (el > I0 + 2.2 && el < I0 + 5) frameSamples.push(rawDt);
+      else if (el >= I0 + 5) {
+        liteDone = true;
+        const avg = frameSamples.reduce((x, y) => x + y, 0) / (frameSamples.length || 1);
+        if (frameSamples.length > 20 && avg > 0.034) root.classList.add('lite');
+      }
+    }
     if (lenis) lenis.raf(now);
     target = scrollY;
     if (lenis) smooth = target;
@@ -3179,7 +3363,11 @@ document.querySelectorAll('.grid3 .card, .grid2 .card').forEach((c, i) => {
 
     let found = null;
     targets.forEach(t => { if (target >= t.el.offsetTop - 220) found = t.a; });
-    if (found !== current) { current = found; placeIndicator(); }
+    if (found !== current) {
+      current = found; placeIndicator();
+      const id = found ? found.getAttribute('href').slice(1) : '';
+      if (ambient) ambient.style.setProperty('--hue', HUES[id] || 215);
+    }
 
     if (hoverable && ambient) ambient.style.transform = 'translate3d(' + ((mx / W - 0.5) * -40).toFixed(1) + 'px,' + ((my / H - 0.5) * -30).toFixed(1) + 'px,0)';
     requestAnimationFrame(tick);
@@ -3201,7 +3389,7 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 setTimeout(() => {
   const liPopup = document.getElementById('liPopup');
   if (liPopup) liPopup.classList.add('show');
-}, 4500);
+}, 9000);
 
 // Modal
 function openModal(src) {
