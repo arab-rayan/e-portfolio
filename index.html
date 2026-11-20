@@ -547,7 +547,7 @@ strong .lw { color: rgba(var(--sig-rgb), .3); } strong .lw.on { color: var(--sig
 .mail-big svg { width: .7em; height: .7em; color: var(--sig); flex-shrink: 0; transition: transform .6s var(--spring); }
 .mail-big:hover svg { transform: translate(.1em, -.1em); }
 .mail-acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; position: relative; z-index: 1; }
-.c-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(50px, 8vh, 90px); border: 1px solid var(--line); background: rgba(12,15,38,.8); }
+.c-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: clamp(50px, 8vh, 90px); border: 1px solid var(--line); background: rgba(12,15,38,.8); }
 .c-card { display: flex; align-items: flex-start; gap: 14px; padding: 24px 22px; transition: background .3s; min-width: 0; }
 .c-card + .c-card { border-left: 1px solid var(--line); }
 a.c-card:hover { background: rgba(var(--sig-rgb), .07); }
@@ -634,7 +634,7 @@ body.system-rebuild .blk { transition: transform .9s var(--spring), opacity .6s,
   .vs-answer { grid-template-columns: 1fr; }
   .m-step { grid-template-columns: 1fr; } .m-num { position: static; }
   .c-grid { grid-template-columns: repeat(2, 1fr); }
-  .c-card:nth-child(3) { border-left: 0; } .c-card:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .c-card:nth-child(3) { border-left: 0; grid-column: 1 / -1; } .c-card:nth-child(n+3) { border-top: 1px solid var(--line); }
   .ping { opacity: .5; right: -10vw; top: 6%; width: 70vw; }
   .st-hop { display: none !important; }
 }
@@ -856,25 +856,25 @@ body.system-rebuild .blk { transition: transform .9s var(--spring), opacity .6s,
     <div class="sec-head">
       <div class="hop reveal"><span class="hop-lbl"><i class="led"></i><span data-scr>03. Projets</span></span><span class="hop-line"></span><span class="hop-ip">10.0.3.0/24</span><span class="hop-n">saut 3/7</span></div>
       <h2 class="sec-title reveal" data-words>Travaux <span>réels</span></h2>
-      <p class="sec-desc reveal">Quatre réalisations menées sur le terrain, entre maintenance, déploiement, stockage, organisation et création d’un outil utile.</p>
+      <p class="sec-desc reveal">Cinq réalisations menées sur le terrain, entre maintenance, déploiement, stockage, organisation et création d’outils utiles.</p>
     </div>
 
     <div class="pjs">
-      <!-- Projet 01 — application STV -->
+      <!-- Projet 01 — application de suivi des stocks -->
       <article class="pj reveal blk">
         <span class="pj-n" aria-hidden="true">01</span>
         <div class="pj-info">
           <span class="pj-meta">// PROJET 01 — STAGE · CORVISART-TOLBIAC</span>
-          <h3 class="pj-title">STV · Suivi des stocks</h3>
+          <h3 class="pj-title">Suivi des stocks</h3>
           <p class="pj-desc">Une application développée à deux pour remplacer un tableur et suivre le stock de matériaux des ateliers. Le tableau de bord se met à jour à chaque mouvement, les seuils déclenchent des alertes et les droits sont adaptés à chaque métier.</p>
           <div class="tags"><span class="tag">Tableau de bord</span><span class="tag">Stocks</span><span class="tag">Alertes</span><span class="tag">Rôles</span><span class="tag">Application web</span></div>
         </div>
         <div class="pj-media">
           <div class="win corners">
             <div class="win-bar"><i></i><i></i><i></i><span>app.mp4</span><b>● lecture</b></div>
-            <div class="win-body"><video class="project-video" autoplay muted loop playsinline preload="metadata" src="app.mp4" aria-label="Démonstration de l'application STV"></video></div>
+            <div class="win-body"><video class="project-video" autoplay muted loop playsinline preload="metadata" src="app.mp4" aria-label="Démonstration de l'application de suivi des stocks"></video></div>
           </div>
-          <span class="video-note">Démonstration de l’application STV</span>
+          <span class="video-note">Démonstration de l’application de suivi des stocks</span>
         </div>
       </article>
 
@@ -930,6 +930,29 @@ body.system-rebuild .blk { transition: transform .9s var(--spring), opacity .6s,
         <div class="pj-media">
           <div class="phone win-body"><video class="project-video-phone" autoplay muted loop playsinline preload="metadata" src="afterwork.mp4" aria-label="Vidéo de l'after work BTS SIO"></video></div>
           <span class="video-note">Vidéo de l’after work BTS SIO</span>
+        </div>
+      </article>
+
+      <!-- Projet 05 — Site de pilotage du Plot 7 (créé avec l'aide de l'IA) -->
+      <article class="pj reveal blk">
+        <span class="pj-n" aria-hidden="true">05</span>
+        <div class="pj-info">
+          <span class="pj-meta">// PROJET 05 — BTS SIO · PLOT 7</span>
+          <h3 class="pj-title">Plot 7 · Site de pilotage</h3>
+          <p class="pj-desc">Une application web créée avec l’aide de l’IA pour suivre le travail de mon groupe sur le Plot 7 : tâches et planning, schéma de l’infrastructure, fichiers, discussion et appels réunis au même endroit. Le site se synchronise en direct entre les membres et reste protégé par un mot de passe.</p>
+          <div class="tags"><span class="tag">Application web</span><span class="tag">IA générative</span><span class="tag">Suivi de projet</span><span class="tag">Schémas d’infrastructure</span><span class="tag">Firebase</span></div>
+          <div class="unlock">
+            <span class="unlock-lbl">Accès protégé</span>
+            <p>Le site est protégé par un mot de passe : demandez-moi l’accès.</p>
+            <a href="https://arab-rayan.github.io/plot7/" target="_blank" rel="noopener">Ouvrir le site ↗</a>
+          </div>
+        </div>
+        <div class="pj-media">
+          <div class="win corners">
+            <div class="win-bar"><i></i><i></i><i></i><span>plot7.mp4</span><b>● lecture</b></div>
+            <div class="win-body"><video class="project-video" autoplay muted loop playsinline preload="metadata" poster="plot7.jpg" src="plot7.mp4" aria-label="Parcours du site de pilotage du Plot 7 : schéma de l’infrastructure, vue 3D et planning des tâches"></video></div>
+          </div>
+          <span class="video-note">Parcours du site : schéma de l’infrastructure, vue 3D et planning des tâches</span>
         </div>
       </article>
     </div>
@@ -1033,6 +1056,7 @@ body.system-rebuild .blk { transition: transform .9s var(--spring), opacity .6s,
     <div class="synth-acts reveal">
       <button class="btn" id="synthZoom" data-mag><span class="roll"><span data-t="Agrandir le tableau">Agrandir le tableau</span></span><span class="arr">⤢</span></button>
       <a class="btn-ghost" id="synthOpen" href="Tableaudesynth%C3%A8se.jpg" target="_blank" rel="noopener" data-mag>&gt; ouvrir_image</a>
+      <a class="btn-ghost" id="fichesDl" href="Fiches_realisations_Rayan_ARAB.pdf" download data-mag>&gt; telecharger_fiches_realisations</a>
       <small>Cliquez sur le tableau pour zoomer.</small>
     </div>
   </div>
@@ -1447,10 +1471,6 @@ body.system-rebuild .blk { transition: transform .9s var(--spring), opacity .6s,
         <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg></div>
         <div><h4>Email</h4><p>arab.rayan9307@gmail.com</p></div>
       </a>
-      <a href="tel:+33766329348" class="c-card">
-        <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3.5h3.2l1.4 4.4-2.1 1.6a12.5 12.5 0 0 0 5.5 5.5l1.6-2.1 4.4 1.4v3.2c0 1-1 1.6-2 1.4-4-1-9.4-6.4-10.4-10.4-.2-1 .4-2 1.4-2z"/></svg></div>
-        <div><h4>Téléphone</h4><p>+33 7 66 XX XX XX</p></div>
-      </a>
       <div class="c-card">
         <div class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg></div>
         <div><h4>Localisation</h4><p>Île-de-France, France</p></div>
@@ -1596,7 +1616,7 @@ function typeInto(el, text, speed, done) {
 }
 function runConsole() {
   const box = $('#conBody'); if (!box) return;
-  const rows = [['nom', '"Arab Rayan"'], ['spé', '"Réseaux &amp; Infra"'], ['focus', '["Réseaux", "Support IT"]'], ['projets', '["STV", "Parc informatique"]'], ['disponible', '<span class="t">true</span>']];
+  const rows = [['nom', '"Arab Rayan"'], ['spé', '"Réseaux &amp; Infra"'], ['focus', '["Réseaux", "Support IT"]'], ['projets', '["Suivi des stocks", "Parc informatique"]'], ['disponible', '<span class="t">true</span>']];
   const line = ([k, v]) => ' ' + k + ' ' + '.'.repeat(13 - k.length) + ' <span class="s">' + v + '</span>\n';
   const P = '<span class="p">rayan#</span> ', C = '<span class="caret"></span>';
   if (reduce) { box.innerHTML = P + 'show profil\n' + rows.map(line).join('') + P + C; return; }
